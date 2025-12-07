@@ -6,9 +6,27 @@ export const FONTS = [
     category: "serif",
   },
   {
+    name: "Abril Fatface",
+    value: "abril",
+    cssVar: "var(--font-abril)",
+    category: "display",
+  },
+  {
+    name: "DM Serif Display",
+    value: "dm-serif",
+    cssVar: "var(--font-dm-serif)",
+    category: "serif",
+  },
+  {
     name: "Space Grotesk",
     value: "space-grotesk",
     cssVar: "var(--font-space-grotesk)",
+    category: "sans-serif",
+  },
+  {
+    name: "Inter",
+    value: "inter",
+    cssVar: "var(--font-inter)",
     category: "sans-serif",
   },
   {
@@ -34,12 +52,6 @@ export const FONTS = [
     value: "archivo-black",
     cssVar: "var(--font-archivo-black)",
     category: "display",
-  },
-  {
-    name: "Merriweather",
-    value: "merriweather",
-    cssVar: "var(--font-merriweather)",
-    category: "serif",
   },
   {
     name: "Montserrat",

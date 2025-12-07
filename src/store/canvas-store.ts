@@ -3,14 +3,14 @@ import type { CanvasStore } from "@/types";
 import { DEFAULT_COLORS } from "@/lib/constants";
 
 export const useCanvasStore = create<CanvasStore>((set) => ({
-  font: "playfair",
-  fontSize: 48,
+  font: "abril",
+  fontSize: 64,
   textStyle: {
     bold: false,
     italic: false,
     underline: false,
   },
-  shaderType: "gradient",
+  shaderType: "mesh",
   primaryColor: DEFAULT_COLORS.primary,
   secondaryColor: DEFAULT_COLORS.secondary,
   aspectRatio: "1:1",

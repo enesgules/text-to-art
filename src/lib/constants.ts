@@ -16,17 +16,34 @@ export const FONT_SIZES = [
 ] as const;
 
 export const SHADER_TYPES = [
-  { name: "Gradient", value: "gradient" },
-  { name: "Noise", value: "noise" },
   { name: "Waves", value: "waves" },
   { name: "Plasma", value: "plasma" },
-  { name: "Voronoi", value: "voronoi" },
+  { name: "Aurora", value: "aurora" },
+  { name: "Glow", value: "glow" },
+  { name: "Liquid", value: "liquid" },
+  { name: "Smoke", value: "smoke" },
+  { name: "Orbit", value: "orbit" },
+  { name: "Pulse", value: "pulse" },
+  { name: "Mesh", value: "mesh" },
+  { name: "Ripple", value: "ripple" },
 ] as const;
 
 export type ShaderType = (typeof SHADER_TYPES)[number]["value"];
 
-// Art nouveau inspired defaults
+// Striking defaults inspired by modern design
 export const DEFAULT_COLORS = {
-  primary: "#1a1a2e",
-  secondary: "#e94560",
+  primary: "#0f0f0f",
+  secondary: "#ff6b35",
 };
+
+// Curated color presets for quick selection
+export const COLOR_PRESETS = [
+  { name: "Sunset", primary: "#0f0f0f", secondary: "#ff6b35" },
+  { name: "Ocean", primary: "#0a192f", secondary: "#64ffda" },
+  { name: "Berry", primary: "#1a1a2e", secondary: "#e94560" },
+  { name: "Forest", primary: "#1b2d1b", secondary: "#90be6d" },
+  { name: "Neon", primary: "#0d0221", secondary: "#f72585" },
+  { name: "Gold", primary: "#1c1c1c", secondary: "#ffd700" },
+  { name: "Lavender", primary: "#1a1423", secondary: "#c8b6ff" },
+  { name: "Coral", primary: "#2b2d42", secondary: "#ef8354" },
+] as const;

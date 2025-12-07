@@ -9,6 +9,9 @@ import {
   Archivo_Black,
   Merriweather,
   Montserrat,
+  Abril_Fatface,
+  Inter,
+  DM_Serif_Display,
 } from "next/font/google";
 import "./globals.css";
 
@@ -66,9 +69,26 @@ const montserrat = Montserrat({
   subsets: ["latin"],
 });
 
+const abrilFatface = Abril_Fatface({
+  variable: "--font-abril",
+  subsets: ["latin"],
+  weight: "400",
+});
+
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+});
+
+const dmSerifDisplay = DM_Serif_Display({
+  variable: "--font-dm-serif",
+  subsets: ["latin"],
+  weight: "400",
+});
+
 export const metadata: Metadata = {
   title: "Text to Art",
-  description: "Transform text into art",
+  description: "Create beautiful text visuals with dynamic shader backgrounds",
 };
 
 export default function RootLayout({
@@ -90,6 +110,9 @@ export default function RootLayout({
           ${archivoBlack.variable}
           ${merriweather.variable}
           ${montserrat.variable}
+          ${abrilFatface.variable}
+          ${inter.variable}
+          ${dmSerifDisplay.variable}
           antialiased
         `}
       >

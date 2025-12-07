@@ -8,19 +8,29 @@ import {
   setupQuad,
   hexToRgb,
 } from "@/lib/shaders";
-import { GRADIENT_FRAGMENT_SHADER } from "@/lib/shaders/gradient";
-import { NOISE_FRAGMENT_SHADER } from "@/lib/shaders/noise";
 import { WAVES_FRAGMENT_SHADER } from "@/lib/shaders/waves";
 import { PLASMA_FRAGMENT_SHADER } from "@/lib/shaders/plasma";
-import { VORONOI_FRAGMENT_SHADER } from "@/lib/shaders/voronoi";
+import { AURORA_FRAGMENT_SHADER } from "@/lib/shaders/aurora";
+import { GLOW_FRAGMENT_SHADER } from "@/lib/shaders/glow";
+import { LIQUID_FRAGMENT_SHADER } from "@/lib/shaders/liquid";
+import { SMOKE_FRAGMENT_SHADER } from "@/lib/shaders/smoke";
+import { ORBIT_FRAGMENT_SHADER } from "@/lib/shaders/orbit";
+import { PULSE_FRAGMENT_SHADER } from "@/lib/shaders/pulse";
+import { MESH_FRAGMENT_SHADER } from "@/lib/shaders/mesh";
+import { RIPPLE_FRAGMENT_SHADER } from "@/lib/shaders/ripple";
 import type { ShaderType } from "@/lib/constants";
 
 const FRAGMENT_SHADERS: Record<ShaderType, string> = {
-  gradient: GRADIENT_FRAGMENT_SHADER,
-  noise: NOISE_FRAGMENT_SHADER,
   waves: WAVES_FRAGMENT_SHADER,
   plasma: PLASMA_FRAGMENT_SHADER,
-  voronoi: VORONOI_FRAGMENT_SHADER,
+  aurora: AURORA_FRAGMENT_SHADER,
+  glow: GLOW_FRAGMENT_SHADER,
+  liquid: LIQUID_FRAGMENT_SHADER,
+  smoke: SMOKE_FRAGMENT_SHADER,
+  orbit: ORBIT_FRAGMENT_SHADER,
+  pulse: PULSE_FRAGMENT_SHADER,
+  mesh: MESH_FRAGMENT_SHADER,
+  ripple: RIPPLE_FRAGMENT_SHADER,
 };
 
 interface ShaderBackgroundProps {

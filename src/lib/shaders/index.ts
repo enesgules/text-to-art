@@ -8,6 +8,19 @@ export const VERTEX_SHADER = `
   }
 `;
 
+// Dithering function to reduce banding
+export const DITHER_FUNCTION = `
+  // Interleaved gradient noise for dithering
+  float dither(vec2 coord) {
+    return fract(52.9829189 * fract(dot(coord, vec2(0.06711056, 0.00583715))));
+  }
+
+  vec3 applyDither(vec3 color, vec2 fragCoord) {
+    float noise = (dither(fragCoord) - 0.5) / 255.0;
+    return color + noise;
+  }
+`;
+
 export function createShader(
   gl: WebGLRenderingContext,
   type: number,
