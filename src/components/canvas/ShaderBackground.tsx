@@ -37,12 +37,16 @@ interface ShaderBackgroundProps {
   shaderType: ShaderType;
   primaryColor: string;
   secondaryColor: string;
+  tertiaryColor: string;
+  quaternaryColor: string;
 }
 
 export function ShaderBackground({
   shaderType,
   primaryColor,
   secondaryColor,
+  tertiaryColor,
+  quaternaryColor,
 }: ShaderBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const glRef = useRef<WebGLRenderingContext | null>(null);
@@ -99,16 +103,20 @@ export function ShaderBackground({
     const timeLocation = gl.getUniformLocation(program, "u_time");
     const color1Location = gl.getUniformLocation(program, "u_color1");
     const color2Location = gl.getUniformLocation(program, "u_color2");
+    const color3Location = gl.getUniformLocation(program, "u_color3");
+    const color4Location = gl.getUniformLocation(program, "u_color4");
 
     const elapsed = (Date.now() - startTimeRef.current) / 1000;
     gl.uniform1f(timeLocation, elapsed);
     gl.uniform3fv(color1Location, hexToRgb(primaryColor));
     gl.uniform3fv(color2Location, hexToRgb(secondaryColor));
+    gl.uniform3fv(color3Location, hexToRgb(tertiaryColor));
+    gl.uniform3fv(color4Location, hexToRgb(quaternaryColor));
 
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 
     animationFrameRef.current = requestAnimationFrame(render);
-  }, [primaryColor, secondaryColor]);
+  }, [primaryColor, secondaryColor, tertiaryColor, quaternaryColor]);
 
   // Handle window resize
   useEffect(() => {

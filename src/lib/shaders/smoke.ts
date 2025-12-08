@@ -7,6 +7,7 @@ export const SMOKE_FRAGMENT_SHADER = `
   uniform float u_time;
   uniform vec3 u_color1;
   uniform vec3 u_color2;
+  uniform vec3 u_color3;
 
   ${DITHER_FUNCTION}
 
@@ -45,10 +46,21 @@ export const SMOKE_FRAGMENT_SHADER = `
 
     vec2 motion = vec2(t * 0.5, t);
     float smoke = fbm(uv * 3.0 + motion);
-    smoke += fbm(uv * 6.0 - motion * 0.5) * 0.5;
-    smoke = smoke * 0.5 + 0.25;
+    float smoke2 = fbm(uv * 6.0 - motion * 0.5) * 0.5;
+    float combined = smoke + smoke2;
+    combined = combined * 0.5 + 0.25;
 
-    vec3 color = mix(u_color1, u_color2, smoke);
+    // Three-color smoke: dark base -> mid smoke -> light wisps
+    vec3 color;
+    if (combined < 0.4) {
+      color = mix(u_color1, u_color2, combined * 2.5);
+    } else {
+      color = mix(u_color2, u_color3, (combined - 0.4) * 1.67);
+    }
+
+    // Add wispy highlights
+    float wisps = pow(smoke2, 2.0) * 2.0;
+    color = mix(color, u_color3, wisps * 0.3);
 
     color = applyDither(color, gl_FragCoord.xy);
     gl_FragColor = vec4(color, 1.0);

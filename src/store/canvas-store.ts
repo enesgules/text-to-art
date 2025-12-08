@@ -13,6 +13,9 @@ export const useCanvasStore = create<CanvasStore>((set) => ({
   shaderType: "mesh",
   primaryColor: DEFAULT_COLORS.primary,
   secondaryColor: DEFAULT_COLORS.secondary,
+  tertiaryColor: DEFAULT_COLORS.tertiary,
+  quaternaryColor: DEFAULT_COLORS.quaternary,
+  textColor: DEFAULT_COLORS.text,
   aspectRatio: "1:1",
 
   setFont: (font) => set({ font }),
@@ -23,5 +26,8 @@ export const useCanvasStore = create<CanvasStore>((set) => ({
   setShaderType: (shaderType) => set({ shaderType }),
   setPrimaryColor: (primaryColor) => set({ primaryColor }),
   setSecondaryColor: (secondaryColor) => set({ secondaryColor }),
+  setTertiaryColor: (tertiaryColor) => set({ tertiaryColor }),
+  setQuaternaryColor: (quaternaryColor) => set({ quaternaryColor }),
+  setTextColor: (textColor) => set({ textColor }),
   setAspectRatio: (aspectRatio) => set({ aspectRatio }),
 }));

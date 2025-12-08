@@ -7,6 +7,7 @@ export const WAVES_FRAGMENT_SHADER = `
   uniform float u_time;
   uniform vec3 u_color1;
   uniform vec3 u_color2;
+  uniform vec3 u_color3;
   uniform vec2 u_resolution;
 
   ${DITHER_FUNCTION}
@@ -19,12 +20,22 @@ export const WAVES_FRAGMENT_SHADER = `
     float wave3 = sin(uv.x * 20.0 + u_time * 0.7) * 0.03;
 
     float waves = wave1 + wave2 + wave3;
-    float pattern = smoothstep(0.0, 0.02, uv.y - 0.5 + waves);
 
     float gradient = uv.y + waves * 2.0;
     gradient = smoothstep(0.0, 1.0, gradient);
 
-    vec3 color = mix(u_color1, u_color2, gradient);
+    // Three-color gradient: color1 -> color2 -> color3
+    vec3 color;
+    if (gradient < 0.5) {
+      color = mix(u_color1, u_color2, gradient * 2.0);
+    } else {
+      color = mix(u_color2, u_color3, (gradient - 0.5) * 2.0);
+    }
+
+    // Add accent on wave peaks
+    float peaks = abs(waves) * 3.0;
+    color = mix(color, u_color3, peaks * 0.3);
+
     color = applyDither(color, gl_FragCoord.xy);
     gl_FragColor = vec4(color, 1.0);
   }

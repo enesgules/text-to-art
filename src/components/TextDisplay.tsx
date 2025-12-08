@@ -11,7 +11,7 @@ interface TextDisplayProps {
 }
 
 export function TextDisplay({ text, onTextChange }: TextDisplayProps) {
-  const { font, fontSize, textStyle } = useCanvasStore();
+  const { font, fontSize, textStyle, textColor } = useCanvasStore();
 
   const fontConfig = FONTS.find((f) => f.value === font);
   const fontFamily = fontConfig?.cssVar || "sans-serif";
@@ -31,13 +31,14 @@ export function TextDisplay({ text, onTextChange }: TextDisplayProps) {
         value={text}
         onChange={handleChange}
         rows={lineCount}
-        className="bg-transparent border-none outline-none text-center text-white pointer-events-auto resize-none"
+        className="bg-transparent border-none outline-none text-center pointer-events-auto resize-none"
         style={{
           fontFamily,
           fontSize: `${fontSize}px`,
           fontWeight: textStyle.bold ? "bold" : "normal",
           fontStyle: textStyle.italic ? "italic" : "normal",
           textDecoration: textStyle.underline ? "underline" : "none",
+          color: textColor,
           lineHeight: 1.2,
           overflow: "hidden",
           whiteSpace: "nowrap",

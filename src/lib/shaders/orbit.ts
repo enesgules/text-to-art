@@ -7,6 +7,8 @@ export const ORBIT_FRAGMENT_SHADER = `
   uniform float u_time;
   uniform vec3 u_color1;
   uniform vec3 u_color2;
+  uniform vec3 u_color3;
+  uniform vec3 u_color4;
 
   ${DITHER_FUNCTION}
 
@@ -25,11 +27,22 @@ export const ORBIT_FRAGMENT_SHADER = `
     float fade = smoothstep(0.5, 0.0, dist);
     spiral *= fade;
 
-    float ring = smoothstep(0.02, 0.0, abs(dist - 0.3 - sin(t) * 0.05));
-    ring += smoothstep(0.02, 0.0, abs(dist - 0.2 - cos(t * 1.3) * 0.03)) * 0.5;
+    // Multiple orbital rings with different colors
+    float ring1 = smoothstep(0.02, 0.0, abs(dist - 0.3 - sin(t) * 0.05));
+    float ring2 = smoothstep(0.02, 0.0, abs(dist - 0.2 - cos(t * 1.3) * 0.03));
+    float ring3 = smoothstep(0.015, 0.0, abs(dist - 0.15 - sin(t * 0.8) * 0.02));
 
-    vec3 color = mix(u_color1, u_color2, spiral);
-    color += u_color2 * ring * 0.3;
+    // Four-color blend based on angle and distance
+    float angleNorm = (angle + 3.14159) / 6.28318; // 0 to 1
+    vec3 innerColor = mix(u_color2, u_color3, angleNorm);
+    vec3 outerColor = mix(u_color1, u_color4, angleNorm);
+
+    vec3 color = mix(outerColor, innerColor, spiral);
+
+    // Add colored rings
+    color += u_color3 * ring1 * 0.4;
+    color += u_color4 * ring2 * 0.3;
+    color += u_color2 * ring3 * 0.2;
 
     color = applyDither(color, gl_FragCoord.xy);
     gl_FragColor = vec4(color, 1.0);

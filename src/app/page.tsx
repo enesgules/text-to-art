@@ -10,7 +10,7 @@ import { useExport } from "@/hooks/useExport";
 export default function Home() {
   const [text, setText] = useState("memento mori");
 
-  const { shaderType, primaryColor, secondaryColor } = useCanvasStore();
+  const { shaderType, primaryColor, secondaryColor, tertiaryColor, quaternaryColor } = useCanvasStore();
 
   const { exportToPng, isExporting } = useExport({ text });
 
@@ -20,6 +20,8 @@ export default function Home() {
         shaderType={shaderType}
         primaryColor={primaryColor}
         secondaryColor={secondaryColor}
+        tertiaryColor={tertiaryColor}
+        quaternaryColor={quaternaryColor}
       />
       <TextDisplay text={text} onTextChange={setText} />
       <ControlPanel onDownload={exportToPng} isExporting={isExporting} />

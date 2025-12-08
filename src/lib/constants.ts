@@ -30,20 +30,37 @@ export const SHADER_TYPES = [
 
 export type ShaderType = (typeof SHADER_TYPES)[number]["value"];
 
-// Striking defaults inspired by modern design
+// Modern defaults with 4 colors
 export const DEFAULT_COLORS = {
-  primary: "#0f0f0f",
-  secondary: "#ff6b35",
+  primary: "#0f0f23",
+  secondary: "#1a1a3e",
+  tertiary: "#4a4e69",
+  quaternary: "#9a8c98",
+  text: "#ffffff",
 };
 
-// Curated color presets for quick selection
+// Shader color counts - how many colors each shader uses
+export const SHADER_COLOR_COUNTS: Record<ShaderType, number> = {
+  waves: 3,
+  plasma: 3,
+  aurora: 3,
+  glow: 3,
+  liquid: 4,
+  smoke: 3,
+  orbit: 4,
+  pulse: 2,
+  mesh: 4,
+  ripple: 2,
+};
+
+// Curated color presets with 4 colors each
 export const COLOR_PRESETS = [
-  { name: "Sunset", primary: "#0f0f0f", secondary: "#ff6b35" },
-  { name: "Ocean", primary: "#0a192f", secondary: "#64ffda" },
-  { name: "Berry", primary: "#1a1a2e", secondary: "#e94560" },
-  { name: "Forest", primary: "#1b2d1b", secondary: "#90be6d" },
-  { name: "Neon", primary: "#0d0221", secondary: "#f72585" },
-  { name: "Gold", primary: "#1c1c1c", secondary: "#ffd700" },
-  { name: "Lavender", primary: "#1a1423", secondary: "#c8b6ff" },
-  { name: "Coral", primary: "#2b2d42", secondary: "#ef8354" },
+  { name: "Midnight", colors: ["#0f0f23", "#1a1a3e", "#4a4e69", "#9a8c98"] },
+  { name: "Sunset", colors: ["#1a1423", "#ff6b35", "#f7c59f", "#efa94a"] },
+  { name: "Ocean", colors: ["#0a192f", "#172a45", "#64ffda", "#a8dadc"] },
+  { name: "Berry", colors: ["#1a1a2e", "#16213e", "#e94560", "#ff8585"] },
+  { name: "Forest", colors: ["#1b2d1b", "#2d4a2d", "#90be6d", "#d4e09b"] },
+  { name: "Neon", colors: ["#0d0221", "#2a0845", "#f72585", "#7209b7"] },
+  { name: "Ember", colors: ["#1c1c1c", "#2d2d2d", "#ff4500", "#ffd700"] },
+  { name: "Frost", colors: ["#1a1a2e", "#2b4570", "#a8dadc", "#e0fbfc"] },
 ] as const;

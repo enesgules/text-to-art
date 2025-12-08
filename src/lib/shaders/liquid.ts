@@ -7,6 +7,8 @@ export const LIQUID_FRAGMENT_SHADER = `
   uniform float u_time;
   uniform vec3 u_color1;
   uniform vec3 u_color2;
+  uniform vec3 u_color3;
+  uniform vec3 u_color4;
 
   ${DITHER_FUNCTION}
 
@@ -18,14 +20,32 @@ export const LIQUID_FRAGMENT_SHADER = `
     uv.x += sin(uv.y * 3.0 + t) * 0.2;
     uv.y += cos(uv.x * 3.0 + t * 1.1) * 0.2;
 
-    float blob1 = 0.3 / length(uv - vec2(sin(t) * 0.5, cos(t * 0.7) * 0.5));
-    float blob2 = 0.3 / length(uv - vec2(cos(t * 0.8) * 0.5, sin(t * 1.2) * 0.5));
-    float blob3 = 0.2 / length(uv - vec2(sin(t * 1.1) * 0.3, cos(t * 0.9) * 0.3));
+    // Four blobs, each with its own color influence
+    vec2 b1 = vec2(sin(t) * 0.5, cos(t * 0.7) * 0.5);
+    vec2 b2 = vec2(cos(t * 0.8) * 0.5, sin(t * 1.2) * 0.5);
+    vec2 b3 = vec2(sin(t * 1.1) * 0.3, cos(t * 0.9) * 0.3);
+    vec2 b4 = vec2(cos(t * 0.6) * 0.4, sin(t * 1.4) * 0.4);
 
-    float liquid = blob1 + blob2 + blob3;
-    liquid = smoothstep(0.8, 1.2, liquid);
+    float d1 = 0.3 / length(uv - b1);
+    float d2 = 0.3 / length(uv - b2);
+    float d3 = 0.25 / length(uv - b3);
+    float d4 = 0.25 / length(uv - b4);
 
-    vec3 color = mix(u_color1, u_color2, liquid);
+    float liquid = d1 + d2 + d3 + d4;
+    float mask = smoothstep(0.8, 1.5, liquid);
+
+    // Normalize for color blending
+    float total = d1 + d2 + d3 + d4 + 0.001;
+    d1 /= total;
+    d2 /= total;
+    d3 /= total;
+    d4 /= total;
+
+    // Blend all four colors based on blob proximity
+    vec3 blobColor = u_color2 * d1 + u_color3 * d2 + u_color4 * d3 + u_color3 * d4;
+
+    // Mix between base color and blob colors
+    vec3 color = mix(u_color1, blobColor, mask);
 
     color = applyDither(color, gl_FragCoord.xy);
     gl_FragColor = vec4(color, 1.0);

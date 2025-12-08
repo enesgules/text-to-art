@@ -14,6 +14,9 @@ export interface CanvasState {
   shaderType: ShaderType;
   primaryColor: string;
   secondaryColor: string;
+  tertiaryColor: string;
+  quaternaryColor: string;
+  textColor: string;
   aspectRatio: AspectRatioValue;
 }
 
@@ -26,6 +29,9 @@ export interface CanvasActions {
   setShaderType: (type: ShaderType) => void;
   setPrimaryColor: (color: string) => void;
   setSecondaryColor: (color: string) => void;
+  setTertiaryColor: (color: string) => void;
+  setQuaternaryColor: (color: string) => void;
+  setTextColor: (color: string) => void;
   setAspectRatio: (ratio: AspectRatioValue) => void;
 }
 

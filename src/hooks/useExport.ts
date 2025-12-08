@@ -49,6 +49,9 @@ export function useExport({ text }: UseExportProps) {
     shaderType,
     primaryColor,
     secondaryColor,
+    tertiaryColor,
+    quaternaryColor,
+    textColor,
     font,
     fontSize,
     textStyle,
@@ -110,10 +113,14 @@ export function useExport({ text }: UseExportProps) {
       const timeLocation = gl.getUniformLocation(program, "u_time");
       const color1Location = gl.getUniformLocation(program, "u_color1");
       const color2Location = gl.getUniformLocation(program, "u_color2");
+      const color3Location = gl.getUniformLocation(program, "u_color3");
+      const color4Location = gl.getUniformLocation(program, "u_color4");
 
       gl.uniform1f(timeLocation, Math.random() * 10); // Random time for variety
       gl.uniform3fv(color1Location, hexToRgb(primaryColor));
       gl.uniform3fv(color2Location, hexToRgb(secondaryColor));
+      gl.uniform3fv(color3Location, hexToRgb(tertiaryColor));
+      gl.uniform3fv(color4Location, hexToRgb(quaternaryColor));
 
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 
@@ -139,7 +146,7 @@ export function useExport({ text }: UseExportProps) {
       if (textStyle.bold) fontStyle += "bold ";
 
       ctx.font = `${fontStyle}${scaledFontSize}px "${fontName}"`;
-      ctx.fillStyle = "#ffffff";
+      ctx.fillStyle = textColor;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
 
@@ -157,7 +164,7 @@ export function useExport({ text }: UseExportProps) {
           const metrics = ctx.measureText(line);
           const underlineY = y + scaledFontSize * 0.15;
           ctx.beginPath();
-          ctx.strokeStyle = "#ffffff";
+          ctx.strokeStyle = textColor;
           ctx.lineWidth = scaledFontSize * 0.05;
           ctx.moveTo(width / 2 - metrics.width / 2, underlineY);
           ctx.lineTo(width / 2 + metrics.width / 2, underlineY);
@@ -180,6 +187,9 @@ export function useExport({ text }: UseExportProps) {
     shaderType,
     primaryColor,
     secondaryColor,
+    tertiaryColor,
+    quaternaryColor,
+    textColor,
     font,
     fontSize,
     textStyle,
